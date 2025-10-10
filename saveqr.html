@@ -3,6 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Save Contact | Image Creative Education</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff7b00, #ffcc00);
+      margin: 0;
+      color: #fff;
+      text-align: center;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 90%;
+      backdrop-filter: blur(8px);
+    }
+    img {
+      width: 120px;
+      margin-bottom: 15px;
+    }
+    h1 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .msg {
+      margin: 10px 0;
+      font-weight: 600;
+    }
+    .redirect {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-bottom: 10px;
+    }
+    .btn {
+      background: #fff;
+      color: #333;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background: #333;
+      color: #fff;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img src="./images/Assets/Logo/imagelogo.png" alt="Image Creative Education - Puducherry Logo">
+    <h1>Image Creative Education - Puducherry</h1>
+    <p>Thank you for scanning! You can download our contact card below.</p>
+
+    <div class="msg" id="msg">📥 Ready to download contact</div>
+    <div class="redirect" id="redirect"></div>
+
+    <button class="btn" onclick="downloadNow()">📩 Download Contact</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const phone = params.get("phone");
+    const email = params.get("email");
+    const address = params.get("address");
+
+    function downloadNow() {
+      if (name && phone && email && address) {
+        const vcard =
+`BEGIN:VCARD
+VERSION:3.0
+N:${name}
+FN:${name}
+TEL;TYPE=CELL:${phone}
+EMAIL:${email}
+ADR;TYPE=WORK:;;${address}
+ORG:Image Creative Education
+TITLE:Training Institute
+END:VCARD`;
+
+        const blob = new Blob([vcard], { type: "text/vcard" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${name.replace(/\s+/g, "_")}.vcf`;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        document.getElementById("msg").innerText = "✅ Contact downloaded successfully!";
+        document.getElementById("redirect").innerText = "Redirecting to our website...";
+
+        // Redirect after 8 seconds
+        setTimeout(() => {
+          window.location.href = "https://www.image.edu.in/multimedia-animation-training-institutes-pondicherry.asp";
+        }, 8000);
+      } else {
+        document.getElementById("msg").innerText = "❌ Missing contact details in QR!";
+      }
+    }
+  </script>
+</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Image Creative Education - Contact Card</title>
   <style>
     body {
@@ -134,110 +257,6 @@ END:VCARD`;
   </script>
 </body>
 </html>
-
-<!--
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Saving Contact...</title>
-  <style>
-    body { font-family: Arial; text-align: center; margin-top: 25%; }
-  </style>
-</head>
-<body>
-  <h3 id="msg">Saving your contact...</h3>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get("name");
-    const phone = params.get("phone");
-    const email = params.get("email");
-    const address = params.get("address");
-
-    if (name && phone && email && address) {
-      let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
-      contacts.push({
-        name, phone, email, address,
-        time: new Date().toLocaleString()
-      });
-      localStorage.setItem("contacts", JSON.stringify(contacts));
-
-      document.getElementById("msg").innerHTML =
-        `✅ Contact Saved!<br>${name}<br>${phone}<br>${email}<br>${address}`;
-
-      // Redirect after 3 seconds (optional)
-      setTimeout(() => {
-       // window.location.href = "https://kathiravanthirumurthy.github.io/swaranaakarshinfo/";
-        window.location.href="https://www.image.edu.in/multimedia-animation-training-institutes-pondicherry.asp";
-      }, 3000);
-    } else {
-      document.getElementById("msg").innerText = "❌ Missing contact details!";
-    }
-  </script>
-</body>
-</html>
-
--->
-
-<!-- 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Downloading Contact...</title>
-  <style>
-    body { font-family: Arial; text-align: center; margin-top: 25%; }
-  </style>
-</head>
-<body>
-  <h3 id="msg">Preparing your contact card...</h3>
-
-  <script>
-    // Extract query parameters
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get("name");
-    const phone = params.get("phone");
-    const email = params.get("email");
-    const address = params.get("address");
-
-    if (name && phone && email && address) {
-      // Build vCard format
-      const vcard =
-`BEGIN:VCARD
-VERSION:3.0
-N:${name}
-FN:${name}
-TEL;TYPE=CELL:${phone}
-EMAIL:${email}
-ADR;TYPE=WORK:;;${address}
-ORG:Image Creative Education
-TITLE:Training Institute
-END:VCARD`;
-
-      // Create a Blob and trigger download
-      const blob = new Blob([vcard], { type: "text/vcard" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${name.replace(/\s+/g, "_")}.vcf`;
-      a.click();
-      URL.revokeObjectURL(url);
-
-      document.getElementById("msg").innerHTML = "✅ Contact card downloaded!";
-
-      // Optional redirect after 3 seconds
-      setTimeout(() => {
-        window.location.href = "https://www.image.edu.in/multimedia-animation-training-institutes-pondicherry.asp";
-      }, 3000);
-
-    } else {
-      document.getElementById("msg").innerText = "❌ Missing contact details in QR!";
-    }
-  </script>
-</body>
-</html>
-
 -->
 
 
