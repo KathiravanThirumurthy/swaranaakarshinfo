@@ -5,7 +5,7 @@ async function downloadNow() {
   const statusEl = document.querySelector(".status");
   statusEl.textContent = "⏳ Loading contact info...";
 
-  const filePath = `data/${id}.json`;
+  const filePath = `https://kathiravanthirumurthy.github.io/data/${id}.json`;
   console.log(`Fetching: ${filePath}`);
 
   try {
