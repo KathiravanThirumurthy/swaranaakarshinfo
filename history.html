@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Saved QRs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <h2>QRs Saved on This Device</h2>
+  <ul id="list"></ul>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem("qrScans")) || [];
+    const list = document.getElementById("list");
+
+    if (data.length === 0) {
+      list.innerHTML = "<li>No QR data saved yet.</li>";
+    } else {
+      data.forEach(d => {
+        const li = document.createElement("li");
+        li.textContent = `${d.type}: ${d.value} (at ${d.time})`;
+        list.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
