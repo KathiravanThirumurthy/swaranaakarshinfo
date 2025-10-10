@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,6 +41,64 @@
 </body>
 </html>
 
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Downloading Contact...</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 25%; }
+  </style>
+</head>
+<body>
+  <h3 id="msg">Preparing your contact card...</h3>
+
+  <script>
+    // Extract query parameters
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const phone = params.get("phone");
+    const email = params.get("email");
+    const address = params.get("address");
+
+    if (name && phone && email && address) {
+      // Build vCard format
+      const vcard =
+`BEGIN:VCARD
+VERSION:3.0
+N:${name}
+FN:${name}
+TEL;TYPE=CELL:${phone}
+EMAIL:${email}
+ADR;TYPE=WORK:;;${address}
+ORG:Image Creative Education
+TITLE:Training Institute
+END:VCARD`;
+
+      // Create a Blob and trigger download
+      const blob = new Blob([vcard], { type: "text/vcard" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${name.replace(/\s+/g, "_")}.vcf`;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      document.getElementById("msg").innerHTML = "✅ Contact card downloaded!";
+
+      // Optional redirect after 3 seconds
+      setTimeout(() => {
+        window.location.href = "https://www.image.edu.in/multimedia-animation-training-institutes-pondicherry.asp";
+      }, 3000);
+
+    } else {
+      document.getElementById("msg").innerText = "❌ Missing contact details in QR!";
+    }
+  </script>
+</body>
+</html>
 
 
 
