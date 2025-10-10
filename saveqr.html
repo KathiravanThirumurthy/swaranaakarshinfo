@@ -1,3 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Creative Education - Contact Card</title>
+  <style>
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      background: linear-gradient(135deg, #ffd700, #f8b400);
+      color: #222;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    img {
+      width: 100px;
+      height: auto;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    p {
+      font-size: 15px;
+      color: #555;
+    }
+
+    .msg {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #008000;
+    }
+
+    .redirect {
+      font-size: 13px;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    .btn {
+      background: #f8b400;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #e0a200;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="./images/Assets/Logo/imagelogo.png" alt="Image Creative Education - Puducherry Logo">
+    <h1>Image Creative Education - Puducherry</h1>
+    <p>Thank you for scanning! Your contact card is being downloaded.</p>
+
+    <div class="msg" id="msg">📥 Downloading Contact...</div>
+    <div class="redirect">Redirecting to our website...</div>
+
+    <button class="btn" onclick="downloadNow()">Download Again</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const phone = params.get("phone");
+    const email = params.get("email");
+    const address = params.get("address");
+
+    function downloadNow() {
+      if (name && phone && email && address) {
+        const vcard =
+`BEGIN:VCARD
+VERSION:3.0
+N:${name}
+FN:${name}
+TEL;TYPE=CELL:${phone}
+EMAIL:${email}
+ADR;TYPE=WORK:;;${address}
+ORG:Image Creative Education
+TITLE:Training Institute
+END:VCARD`;
+
+        const blob = new Blob([vcard], { type: "text/vcard" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${name.replace(/\s+/g, "_")}.vcf`;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        document.getElementById("msg").innerText = "✅ Contact downloaded successfully!";
+      } else {
+        document.getElementById("msg").innerText = "❌ Missing contact details in QR!";
+      }
+    }
+
+    // Auto download when page loads
+    downloadNow();
+
+    // Redirect after 3 seconds
+    setTimeout(() => {
+      window.location.href = "https://www.image.edu.in/multimedia-animation-training-institutes-pondicherry.asp";
+    }, 3000);
+  </script>
+</body>
+</html>
+
 <!--
 <!DOCTYPE html>
 <html>
@@ -43,6 +180,7 @@
 
 -->
 
+<!-- 
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,7 +238,7 @@ END:VCARD`;
 </body>
 </html>
 
-
+-->
 
 
 <!-- 
