@@ -1,6 +1,9 @@
 async function downloadNow() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id") || "puducherry"; // default branch
+  
   try {
-    const response = await fetch('../data/contact.json');
+    const response = await fetch(`../data/${id}.json`);
     const data = await response.json();
 
     const vcard = `
@@ -26,7 +29,7 @@ END:VCARD`;
     document.querySelector(".status").textContent = "✅ Contact Downloaded Successfully!";
     
     setTimeout(() => {
-      window.location.href = "https://www.image.edu.in/multimedia-animation-training-institutes-pondicherry.asp";
+      window.location.href = data.redirect;
     }, 3000);
 
   } catch (error) {
