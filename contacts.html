@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head><title>Saved Contacts</title></head>
+<body>
+  <h2>Contacts Saved on This Device</h2>
+  <ul id="list"></ul>
+
+  <script>
+    const contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    const list = document.getElementById("list");
+
+    if (contacts.length === 0) {
+      list.innerHTML = "<li>No contacts saved yet.</li>";
+    } else {
+      contacts.forEach(c => {
+        const li = document.createElement("li");
+        li.innerHTML = `<b>${c.name}</b><br>Phone: ${c.phone}<br>Email: ${c.email}<br>Address: ${c.address}<br>Saved at: ${c.time}<hr>`;
+        list.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+<!--
+
+https://kathiravanthirumurthy.github.io/swaranaakarshinfo/contacts.html
+
+-->

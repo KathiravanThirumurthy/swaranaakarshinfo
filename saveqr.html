@@ -2,37 +2,69 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Saving QR Info...</title>
+  <title>Saving Contact...</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 25%;
-    }
+    body { font-family: Arial; text-align: center; margin-top: 25%; }
   </style>
 </head>
 <body>
-  <h3 id="msg">Processing your QR...</h3>
+  <h3 id="msg">Saving your contact...</h3>
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const type = params.get("type");
-    const value = params.get("value");
+    const name = params.get("name");
+    const phone = params.get("phone");
+    const email = params.get("email");
+    const address = params.get("address");
 
-    if (type && value) {
-      let saved = JSON.parse(localStorage.getItem("qrScans")) || [];
-      saved.push({ type, value, time: new Date().toLocaleString() });
-      localStorage.setItem("qrScans", JSON.stringify(saved));
+    if (name && phone && email && address) {
+      let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+      contacts.push({
+        name, phone, email, address,
+        time: new Date().toLocaleString()
+      });
+      localStorage.setItem("contacts", JSON.stringify(contacts));
 
-      document.getElementById("msg").innerText = `✅ ${type}: ${value} saved to your device!`;
+      document.getElementById("msg").innerHTML =
+        `✅ Contact Saved!<br>${name}<br>${phone}<br>${email}<br>${address}`;
 
-      // Redirect after 2 seconds
+      // Redirect after 3 seconds (optional)
       setTimeout(() => {
         window.location.href = "https://kathiravanthirumurthy.github.io/swaranaakarshinfo/";
-      }, 2000);
+      }, 3000);
     } else {
-      document.getElementById("msg").innerText = "❌ Invalid QR Code Data";
+      document.getElementById("msg").innerText = "❌ Missing contact details!";
     }
   </script>
 </body>
 </html>
+
+
+
+
+
+<!-- 
+
+Now the page saves full contact info in localStorage under key "contacts"
+
+
+| Name     | Phone         | Email                                       | Address | QR Link                                                                                                                                            |
+| -------- | ------------- | ------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Image Creative Education - Puducherry | +91 99439 52078 | [john@example.com](mailto:john@example.com) | No : 166, Govindarasu Naicker St, Opposite to Shanmuga theater, Kuyavarpalayam , Nellithope, Puducherry - 605013  | `https://kathiravanthirumurthy.github.io/swaranaakarshinfo/saveqr.html?name=Image Creative Education - Puducherry&phone=+919943952078&email=officialmailpondy@gmail.com&address=No : 166, Govindarasu Naicker St, Opposite to Shanmuga theater, Kuyavarpalayam , Nellithope, Puducherry - 605013` |
+
+
+https://kathiravanthirumurthy.github.io/swaranaakarshinfo/saveqr.html?name=Image%20Creative%20Education%20-%20Puducherry&phone=%2B919943952078&email=officialmailpondy%40gmail.com&address=No%20%3A%20166%2C%20Govindarasu%20Naicker%20St%2C%20Opposite%20to%20Shanmuga%20theater%2C%20Kuyavarpalayam%2C%20Nellithope%2C%20Puducherry%20-%20605013
+
+
+
+
+
+
+https://kathiravanthirumurthy.github.io/swaranaakarshinfo/saveqr.html?type=course&value=UIUX
+https://kathiravanthirumurthy.github.io/swaranaakarshinfo/saveqr.html?type=course&value=VFX
+https://kathiravanthirumurthy.github.io/swaranaakarshinfo/saveqr.html?type=course&value=GameDev
+https://kathiravanthirumurthy.github.io/swaranaakarshinfo/saveqr.html?type=course&value=Animation
+
+https://kathiravanthirumurthy.github.io/swaranaakarshinfo/history.html
+
+-->
