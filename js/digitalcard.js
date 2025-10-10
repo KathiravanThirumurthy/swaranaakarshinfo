@@ -1,57 +1,59 @@
-async function downloadNow() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id") || "puducherry"; // default branch
+// Contact data stored directly
+const contactData = {
+  "name": "Image Creative Education - Puducherry",
+  "phone": "+91 99439 52078",
+  "email": "imagepondy75@gmail.com",
+  "address": "166, Govindan Naicker St,(Opp. Shanmuga theater ), Kuyavarpalayam, Nellithope, Puducherry - 605013",
+  "org": "Image Creative Education",
+  "title": "Image Creative Education",
+  "redirect": "https://www.image.edu.in/multimedia-animation-training-institutes-pondicherry.asp"
+};
 
+
+
+// Function called on button click
+function downloadNow() {
   const statusEl = document.querySelector(".status");
-  statusEl.textContent = "⏳ Loading contact info...";
-
-  const filePath = `https://kathiravanthirumurthy.github.io/data/${id}.json`;
-  console.log(`Fetching: ${filePath}`);
+  statusEl.textContent = "⏳ Generating contact info...";
 
   try {
-    const response = await fetch(filePath);
-
-    if (!response.ok) {
-      throw new Error(`File not found or server error (status: ${response.status})`);
-    }
-
-    const data = await response.json();
-
-    if (!data.name || !data.phone) {
-      throw new Error("Invalid data format in JSON.");
-    }
-
+    // Generate vCard string
     const vcard = `
 BEGIN:VCARD
 VERSION:3.0
-N:${data.name}
-FN:${data.name}
-TEL;TYPE=CELL:${data.phone}
-EMAIL:${data.email || ""}
-ADR;TYPE=WORK:;;${data.address || ""}
-ORG:${data.org || ""}
-TITLE:${data.title || ""}
+N:${contactData.name}
+FN:${contactData.name}
+TEL;TYPE=CELL:${contactData.phone}
+EMAIL:${contactData.email}
+ADR;TYPE=WORK:;;${contactData.address}
+ORG:${contactData.org}
+TITLE:${contactData.title}
 END:VCARD`.trim();
 
+    // Download VCF
     const blob = new Blob([vcard], { type: "text/vcard" });
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${data.name.replace(/\s+/g, "_")}.vcf`;
+    a.download = `${contactData.name.replace(/\s+/g, "_")}.vcf`;
     a.click();
     URL.revokeObjectURL(url);
 
     statusEl.textContent = "✅ Contact Downloaded Successfully!";
 
-    if (data.redirect) {
+    // Optional redirect after 3 seconds
+    if (contactData.redirect) {
       setTimeout(() => {
-        window.location.href = data.redirect;
-      }, 3000);
+        window.location.href = contactData.redirect;
+      }, 10000);
     }
+
+    
 
   } catch (error) {
     console.error(error);
-    statusEl.textContent = `❌ Failed to load contact info: ${error.message}`;
+    statusEl.textContent = `❌ Failed to generate contact info: ${error.message}`;
   }
 }
+
