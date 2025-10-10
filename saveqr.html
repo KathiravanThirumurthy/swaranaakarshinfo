@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saving QR Info...</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 25%;
+    }
+  </style>
+</head>
+<body>
+  <h3 id="msg">Processing your QR...</h3>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const type = params.get("type");
+    const value = params.get("value");
+
+    if (type && value) {
+      let saved = JSON.parse(localStorage.getItem("qrScans")) || [];
+      saved.push({ type, value, time: new Date().toLocaleString() });
+      localStorage.setItem("qrScans", JSON.stringify(saved));
+
+      document.getElementById("msg").innerText = `✅ ${type}: ${value} saved to your device!`;
+
+      // Redirect after 2 seconds
+      setTimeout(() => {
+        window.location.href = "https://kathiravanthirumurthy.github.io/swaranaakarshinfo/";
+      }, 2000);
+    } else {
+      document.getElementById("msg").innerText = "❌ Invalid QR Code Data";
+    }
+  </script>
+</body>
+</html>

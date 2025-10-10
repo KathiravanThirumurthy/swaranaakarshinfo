@@ -7,17 +7,26 @@ body, html {
 header
 {
  height: 100vh;
+
  background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.7)), url('../images/Assets/banner/Banner.jpg') no-repeat center center/cover;
-   
+   /* */
+   background-size: cover;
+  padding-top: 72px; /* Account for fixed navbar height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-
+/*
+.nav-link {
+  white-space: normal !important;
+}
+*/
 .banner
 {
 position: absolute;
 top:50%;
 left:50%;
-  transform: translate(-50%,-50%);
+transform: translate(-50%,-50%);
 width: 80%;
 }
 .banner-heading
