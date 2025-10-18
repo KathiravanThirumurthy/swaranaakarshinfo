@@ -6,7 +6,7 @@ const contactData = {
   "email": "imagepondy75@gmail.com",
   "address": "166, Govindan Naicker St,(Opp. Shanmuga theater ), Kuyavarpalayam, Nellithope, Puducherry - 605013",
   "org": "Image Creative Education",
-  "title": "Image Creative Education",
+  "title": "Puducherry",
   "redirect": "https://www.image.edu.in/multimedia-animation-training-institutes-pondicherry.asp"
 };
 
