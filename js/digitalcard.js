@@ -1,6 +1,7 @@
 // Contact data stored directly
 const contactData = {
-  "name": "Image Creative Education - Puducherry",
+ /* "name": "Image Creative Education - Puducherry",*/
+  "name": "Ramakrishnan",
   "phone": "+91 99439 52078",
   "email": "imagepondy75@gmail.com",
   "address": "166, Govindan Naicker St,(Opp. Shanmuga theater ), Kuyavarpalayam, Nellithope, Puducherry - 605013",
